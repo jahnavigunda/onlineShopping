@@ -2,18 +2,18 @@ package com.onlineshopping.product.controller;
 
 import com.onlineshopping.product.dto.Product;
 import com.onlineshopping.product.service.ProductService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
-
+@Slf4j
 @RestController
 @RequestMapping("/v1")
 public class ProductController {
-    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
+
     private ProductService productService;
 
     public ProductController(ProductService productService) {
@@ -21,9 +21,9 @@ public class ProductController {
     }
 
     @PostMapping("/addProduct")
-    ResponseEntity<Product> addProduct(@RequestBody Product product) {
+    ResponseEntity<Product> addProduct(@RequestBody @Valid Product product) {
         String status = productService.addProduct(product);
-        logger.info("Product added status - {}", status);
+        log.info("Product added status - {}", status);
         return ResponseEntity.status(HttpStatus.CREATED).body(product);
     }
 
