@@ -15,10 +15,10 @@ import java.util.List;
 @Document(collection = "product")
 public class Product {
     @Id
-    private Integer id;
+    private String id;
     @NotNull(message = "Product Name should not be null")
     private String name;
-    @NotNull(message = "Category should not be null")
+    @NotNull(message = "Category of product should not be null")
     private Category category;
     @Min(0)
     private double price;
