@@ -1,6 +1,8 @@
-package com.onlineshopping.product.exception;
+package com.onlineshopping.product.exception.handler;
 
 import com.onlineshopping.product.dto.APIError;
+import com.onlineshopping.product.exception.CurrencyNotValidException;
+import com.onlineshopping.product.exception.OfferNotValidException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +21,7 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
-    @ExceptionHandler({OfferNotValidException.class})
+    @ExceptionHandler({OfferNotValidException.class, CurrencyNotValidException.class})
     ResponseEntity<?> offerNotValidHandler(Exception exception, ServletWebRequest request) {
         APIError apiError = new APIError();
         apiError.setTimeStamp(LocalDateTime.now());
