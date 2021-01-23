@@ -1,0 +1,12 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: Product Microservice in Test environment
+
+product:
+  currencies:
+    - USD
+    - INR
+
+

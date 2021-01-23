@@ -1,5 +1,6 @@
 server:
   port: 8080
+
 spring:
   application:
     name: Product Microservice
@@ -9,9 +10,25 @@ spring:
       port: 27017
       database: shopping
 
+  profiles:
+    active: test, dev
+
 product:
   currencies:
     - INR
     - USD
     - EUR
+
+---
+server:
+  port: 8085
+
+spring:
+  config:
+    activate:
+      on-profile:
+        - prod
+
+
+
 
