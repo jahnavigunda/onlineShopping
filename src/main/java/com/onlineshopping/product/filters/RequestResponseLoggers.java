@@ -1,8 +1,11 @@
 package com.onlineshopping.product.filters;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.onlineshopping.product.dto.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.TeeOutputStream;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
@@ -16,17 +19,39 @@ import java.io.*;
 @Slf4j
 //@Order(1)
 public class RequestResponseLoggers implements Filter {
+    @Autowired
+    ObjectMapper objectMapper;
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+
         MyCustomHttpRequestWrapper requestWrapper = new MyCustomHttpRequestWrapper((HttpServletRequest) request);
-        log.info("Request URI: {}", requestWrapper.getRequestURI());
+        String uri= requestWrapper.getRequestURI();
+        log.info("Request URI: {}", uri);
         log.info("Request Method: {}", requestWrapper.getMethod());
-        log.info("Request Body: {}", new String(requestWrapper.getByteArray()).replaceAll("\n", " "));
+        String requestData= new String(requestWrapper.getByteArray());
+
+        //masking data for details like password, ssn, personal..
+        if("/v1/addProduct".equalsIgnoreCase(uri)){
+            Product product= objectMapper.readValue(requestData, Product.class);
+            product.setCurrency("*****");
+            requestData= objectMapper.writeValueAsString(product);
+        }
+        log.info("Request Body: {}",requestData );
 
         MyCustomHttpResponseWrapper responseWrapper= new MyCustomHttpResponseWrapper((HttpServletResponse)response);
+
         chain.doFilter(requestWrapper, responseWrapper);
+
+        String responseResult= new String(responseWrapper.getBaos().toByteArray());
+
+        if("/v1/addProduct".equalsIgnoreCase(uri)){
+            Product product= objectMapper.readValue(responseResult, Product.class);
+            product.setCurrency("*****");
+            responseResult= objectMapper.writeValueAsString(product);
+        }
+
         log.info("Response Status - {}", responseWrapper.getStatus());
-        log.info("Response Body - {}", new String(responseWrapper.getBaos().toByteArray()));
+        log.info("Response Body - {}", responseResult);
     }
 
     private class MyCustomHttpRequestWrapper extends HttpServletRequestWrapper{
@@ -39,13 +64,11 @@ public class RequestResponseLoggers implements Filter {
                 throw new RuntimeException("Issue while reading request stream");
             }
         }
-
         @Override
         public ServletInputStream getInputStream() throws IOException {
 
             return new MyDelegatingServletInputStream(new ByteArrayInputStream(byteArray));
         }
-
         public byte[] getByteArray() {
             return byteArray;
         }
