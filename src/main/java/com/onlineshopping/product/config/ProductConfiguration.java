@@ -1,4 +1,4 @@
-package com.onlineshopping.product.service.config;
+package com.onlineshopping.product.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

@@ -4,7 +4,7 @@ import com.onlineshopping.product.dto.Product;
 import com.onlineshopping.product.exception.CurrencyNotValidException;
 import com.onlineshopping.product.exception.OfferNotValidException;
 import com.onlineshopping.product.repository.ProductRepository;
-import com.onlineshopping.product.service.config.ProductConfiguration;
+import com.onlineshopping.product.config.ProductConfiguration;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

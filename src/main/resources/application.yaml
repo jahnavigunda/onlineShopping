@@ -23,6 +23,26 @@ logging:
   level:
     root: INFO
 
+#actuator specific
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
+#  health:
+#    mongo:
+#      enabled:  false
+
+info:
+  app:
+    name: Product Microservice
+    version: 1.0
+    description: Add and Retrieve Product information
+
 product:
   currencies:
     - INR

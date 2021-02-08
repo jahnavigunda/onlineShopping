@@ -1,4 +1,4 @@
-package com.onlineshopping.product;
+package com.onlineshopping.product.config;
 
 import com.onlineshopping.product.filters.RequestResponseLoggers;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
