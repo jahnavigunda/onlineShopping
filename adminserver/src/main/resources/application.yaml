@@ -1,0 +1,19 @@
+server:
+  port: 8081
+
+# used mailtrap for getting mails from. also can use gmail details here.
+#https://codecentric.github.io/spring-boot-admin/current/#mail-notifications
+spring:
+  mail:
+    host: smtp.mailtrap.io
+    port: #
+    username: #
+    password: #
+    test-connection: true
+  boot:
+    admin:
+      notify:
+        mail:
+          to:
+            #our mail id
+          ignore-changes: ''
