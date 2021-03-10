@@ -19,6 +19,7 @@ ext {
 dependencies {
 	implementation 'de.codecentric:spring-boot-admin-starter-server'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	compile group: 'com.hazelcast', name: 'hazelcast', version: '3.12.11'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
