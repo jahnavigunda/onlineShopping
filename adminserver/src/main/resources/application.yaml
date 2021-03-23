@@ -12,8 +12,19 @@ spring:
     test-connection: true
   boot:
     admin:
+      ui:
+        brand: "<img src= 'assets/img/spring-boot-logo.png'><span> Online Shopping Service </span>"
+        title: 'Application for online shopping portal'
+        login-icon: 'assets/img/spring-boot-logo.png'
+        available-languages:
+          - en
+          - fr
+        view-settings:
+          - name: 'about'
+            enabled: false
       notify:
         mail:
           to:
-            #our mail id
-          ignore-changes: ''
+          #our mail id
+          ignore-changes:
+            - ''
